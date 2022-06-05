@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './App.css';
 
 function App() {
 
   const [countries, setCountry] = useState([]);
 
+  // useEffect( () => {
+  //   fetch('https://restcountries.com/v3.1/all')
+  //   .then(response => response.json())
+  //   .then( response => setCountry(response));
+  // }, []);
+
   useEffect( () => {
-    fetch('https://restcountries.com/v3.1/all')
-    .then(response => response.json())
-    .then( response => setCountry(response));
+    axios
+    .get('https://restcountries.com/v3.1/all')
+    .then(response => setCountry(response.data))
+    .catch(error => console.log(error));
   }, []);
 
   return (
